@@ -149,3 +149,25 @@ func closeScreenAction() bool {
 	log.Println("screen close success")
 	return true
 }
+
+//暂停
+type pauseTvPayload struct {
+}
+
+func pauseTv(rsp http.ResponseWriter, req *http.Request) {
+	var payload pauseTvPayload
+	err := json.NewDecoder(req.Body).Decode(&payload)
+	if err != nil {
+		log.Println(err)
+		ErrorResponse(rsp)
+		return
+	}
+	err = tv.pause()
+	if err != nil {
+		log.Println(err)
+		ErrorResponse(rsp)
+		return
+	}
+	SuccessResponse(rsp, nil)
+	return
+}

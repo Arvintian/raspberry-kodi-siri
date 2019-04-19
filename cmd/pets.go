@@ -62,6 +62,22 @@ func (t *Tv) close() error {
 	return err
 }
 
+func (t *Tv) pause() error {
+	var rpc tvRpc
+	rpc.Jsonrpc = "2.0"
+	rpc.Method = "Input.ExecuteAction"
+	rpc.Params = map[string]string{
+		"action": "pause",
+	}
+	rpc.ID = time.Now().Unix()
+	data, err := json.Marshal(rpc)
+	if err != nil {
+		return err
+	}
+	_, err = httppost("http://127.0.0.1:8080/jsonrpc", data)
+	return err
+}
+
 type Screen struct {
 }
 

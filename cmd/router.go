@@ -17,6 +17,7 @@ func RegisterRouter() *mux.Router {
 	router := mux.NewRouter()
 	router.HandleFunc("/opentv", openTv)
 	router.HandleFunc("/closetv", closeTv)
+	router.HandleFunc("/pausetv", pauseTv)
 	router.Use(loggingMiddleware)
 	return router
 }
